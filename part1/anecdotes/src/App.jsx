@@ -13,26 +13,48 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [votes, setVotes] = useState(new Array(anecdotes.length).fill(0))
 
   const randomizeSelected = () => {
     setSelected(Math.floor(Math.random() * (anecdotes.length)))
   }
 
+  const vote = () => {
+    const votesCopy = [...votes]
+    votesCopy[selected]+=1
+    setVotes(votesCopy)
+  }
+
   return (
     <div>
-      {anecdotes[selected]}
-      <RandomButton clickHandler={randomizeSelected} />
+      <p>
+        {anecdotes[selected]}
+      </p>
+      <QuoteScore score={votes[selected]} /> 
+      <div>
+        <RandomButton clickHandler={randomizeSelected} />
+        <VoteButton clickHandler={vote} />
+      </div>
     </div>
+  )
+}
+
+const QuoteScore = ({ score }) => {
+  return (
+    <p>has { score } votes.</p>
   )
 }
 
 const RandomButton = ({ clickHandler }) => {
   return (
-    <div>
       <button onClick={clickHandler}>Random anecdote</button>
-
-    </div>
   )
+}
+
+const VoteButton = ({ clickHandler }) => {
+  return (
+    <button onClick={clickHandler}>Vote</button>
+  ) 
 }
 
 export default App
