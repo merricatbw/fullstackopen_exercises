@@ -41,13 +41,14 @@ const Statistics = ({ feedback }) => {
     <div>
       <h2>statistics</h2>        
       <table>
-        <Statistic text="Good" count={feedback.good} />
-        <Statistic text="Neutral" count={feedback.neutral} />
-        <Statistic text="Bad" count={feedback.bad} />
-        <Statistic text="All" count={total} />
-        <Statistic text="Average" count={isNaN(average) ? 0 : average.toFixed(2)} />
-        <Statistic text="Positive" count={isNaN(positivePercentage)? 0 : positivePercentage.toFixed(2)} symbol="%" />
-
+        <tbody>
+          <Statistic text="Good" count={feedback.good} />
+          <Statistic text="Neutral" count={feedback.neutral} />
+          <Statistic text="Bad" count={feedback.bad} />
+          <Statistic text="All" count={total} />
+          <Statistic text="Average" count={isNaN(average) ? 0 : average.toFixed(2)} />
+          <Statistic text="Positive" count={isNaN(positivePercentage)? 0 : positivePercentage.toFixed(2)} symbol="%" />
+        </tbody>
       </table>
     </div>
 
