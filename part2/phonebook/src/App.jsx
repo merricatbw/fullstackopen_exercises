@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import Persons from './components/persons'
 import PersonForm from './components/personform'
+import Search from './components/search'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -58,7 +59,7 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
-      search: <input type="text" onChange={handleSearchChange} value={searchTerm} />
+      <Search handleChange={handleSearchChange} searchTerm={searchTerm} />
       <h2>new contact</h2>
       <PersonForm 
         name={newName}
