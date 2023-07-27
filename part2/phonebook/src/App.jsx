@@ -1,20 +1,23 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 import Persons from './components/persons'
 import PersonForm from './components/personform'
 import Search from './components/search'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '07738277245' },
-    { name: 'Ada Lovelace', number: '07934429763' },
-    { name: 'Jim Halpert', number: '07370573945' },
-    { name: 'Dwight Schrute', number: '07982786774' },
-
-  ]) 
+  const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:8080/persons')
+      .then(res => {
+        setPersons(res.data)
+      })
+  }, [])
 
   const filteredList = searchTerm === '' 
     ? persons 
@@ -37,10 +40,15 @@ const App = () => {
       {
         name: newName,
         number: newNumber,
+        id: generateID(),
       }
     ])
     setNewName('')
     setNewNumber('')
+  }
+  const generateID = () => {
+    if (persons.length === 0) return 1
+    return persons[persons.length - 1].id + 1
   }
 
   const handleNameChange = e => {

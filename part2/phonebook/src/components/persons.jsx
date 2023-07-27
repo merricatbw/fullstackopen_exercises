@@ -2,7 +2,7 @@ const Persons = ({ persons }) => {
 
   const renderNames = persons.map(person => {
     return (
-      <tr key={person.name}>
+      <tr key={person.id}>
         <td>{person.name}</td>
         <td>{person.number}</td>
       </tr>
