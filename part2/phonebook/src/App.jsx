@@ -35,16 +35,16 @@ const App = () => {
       return
     }
 
-    setPersons([
-      ...persons,
-      {
-        name: newName,
-        number: newNumber,
-        id: generateID(),
-      }
-    ])
-    setNewName('')
-    setNewNumber('')
+    const person = {name: newName, number: newNumber, id: generateID()}
+
+    axios
+      .post("http://localhost:8080/persons", person)
+      .then((res) => {
+        setPersons([...persons, res.data])
+        setNewName('')
+        setNewNumber('')
+      })
+
   }
   const generateID = () => {
     if (persons.length === 0) return 1
