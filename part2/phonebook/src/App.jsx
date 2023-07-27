@@ -5,6 +5,7 @@ const App = () => {
     { name: 'Arto Hellas', number: '07738277245' }
   ]) 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
   const addPerson = e => {
     e.preventDefault()
@@ -12,17 +13,26 @@ const App = () => {
       alert(`${newName} is already in the phonebook`)
       return
     }
+    if (newName === '' || newNumber === '') {
+      alert('Please make sure both fields are filled out')
+      return
+    }
     setPersons([
       ...persons,
       {
         name: newName,
+        number: newNumber,
       }
     ])
     setNewName('')
+    setNewNumber('')
   }
 
-  const handleChange = e => {
+  const handleNameChange = e => {
     setNewName(e.target.value)
+  }
+  const handleNumberChange = e => {
+    setNewNumber(e.target.value)
   }
 
   const renderNames = persons.map(person => {
@@ -39,7 +49,10 @@ const App = () => {
       <h2>Phonebook</h2>
       <form onSubmit={addPerson}>
         <div>
-          name: <input onChange={handleChange} value={newName} />
+          name: <input onChange={handleNameChange} value={newName} />
+        </div>
+        <div>
+          number: <input onChange={handleNumberChange} value={newNumber} />
         </div>
         <div>
           <button type="submit">add</button>
