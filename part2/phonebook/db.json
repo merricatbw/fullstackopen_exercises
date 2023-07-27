@@ -24,6 +24,21 @@
       "name": "Jim Halpert",
       "number": "07676632397",
       "id": 5
+    },
+    {
+      "name": "Dwight Shrute",
+      "number": "-redacted-",
+      "id": 6
+    },
+    {
+      "name": "test",
+      "number": "123",
+      "id": 7
+    },
+    {
+      "name": "Pepe Halpert",
+      "number": "baby123",
+      "id": 8
     }
   ]
 }
