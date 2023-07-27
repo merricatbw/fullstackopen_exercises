@@ -8,6 +8,10 @@ const App = () => {
 
   const addPerson = e => {
     e.preventDefault()
+    if (persons.findIndex(person => person.name.toUpperCase() === newName.toUpperCase()) !== -1) {
+      alert(`${newName} is already in the phonebook`)
+      return
+    }
     setPersons([
       ...persons,
       {
