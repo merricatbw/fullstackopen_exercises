@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import Persons from './components/persons'
+
 const App = () => {
   const [persons, setPersons] = useState([
     { name: 'Arto Hellas', number: '07738277245' },
@@ -51,14 +53,6 @@ const App = () => {
     setSearchTerm(e.target.value)
   }
 
-  const renderNames = filteredList.map(person => {
-    return (
-      <tr key={person.name}>
-        <td>{person.name}</td>
-        <td>{person.number}</td>
-      </tr>
-    )
-  })
 
   return (
     <div>
@@ -76,17 +70,7 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Number</th>
-          </tr>
-        </thead>
-        <tbody>
-          {renderNames} 
-        </tbody>
-      </table>
+      <Persons persons={filteredList} />
     </div>
   )
 }
