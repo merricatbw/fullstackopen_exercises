@@ -61,6 +61,14 @@ const App = () => {
     setSearchTerm(e.target.value)
   }
 
+  const handleDelete = (id, name) => { 
+    if (!window.confirm(`Are you sure you want to delete ${name}`)) return
+    personService.deletePerson(id)
+      .then(_ => {
+        setPersons(persons.filter(person => person.id !== id))
+      })
+  }
+
 
   return (
     <div>
@@ -75,7 +83,7 @@ const App = () => {
         onSubmit={addPerson}
       />
       <h2>Numbers</h2>
-      <Persons persons={filteredList} />
+      <Persons persons={filteredList} handleDelete={handleDelete} />
     </div>
   )
 }
