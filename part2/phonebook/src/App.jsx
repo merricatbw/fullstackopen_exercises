@@ -22,10 +22,17 @@ const App = () => {
     ? persons 
     : persons.filter(person => person.name.toLocaleUpperCase().includes(searchTerm.toUpperCase()))
 
+
   const addPerson = e => {
     e.preventDefault()
     if (persons.findIndex(person => person.name.toUpperCase() === newName.toUpperCase()) !== -1) {
-      alert(`${newName} is already in the phonebook`)
+      if (!window.confirm(`${newName} is already in the phonebook. Would you like to update their number?`)) return
+      const person = persons.find((person) => person.name.toUpperCase() === newName.toUpperCase()) 
+      const updatedPerson = {...person, number: newNumber}
+      personService.updatePerson(updatedPerson)
+        .then(res => {
+          setPersons(persons.map(person => person.id === res.id ? res : person))
+        })
       return
     }
 
@@ -44,6 +51,7 @@ const App = () => {
       })
 
   }
+
   const generateID = () => {
     if (persons.length === 0) return 1
     return persons[persons.length - 1].id + 1
