@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+SA+Beginner:wght@500&family=Montserrat:ital@0;1&display=swap');
+
+.notification-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(34,193,195);
+  background: linear-gradient(45deg, rgba(34,193,195,1) 0%, rgba(191,253,45,1) 100%);
+  font-family: 'Edu SA Beginner', cursive;
+  font-size: 2em;
+  color: white;
+  border-radius: 12px; 
+  padding: 6px 12px;
+  min-width: 50%;
+}

@@ -4,12 +4,14 @@ import personService from './services/person'
 import Persons from './components/persons'
 import PersonForm from './components/personform'
 import Search from './components/search'
+import Notification from './components/notification'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
       personService.getAll()
@@ -32,6 +34,9 @@ const App = () => {
       personService.updatePerson(updatedPerson)
         .then(res => {
           setPersons(persons.map(person => person.id === res.id ? res : person))
+          setNewName('')
+          setNewNumber('')
+          displayMessage(`updated contact ${res.name}`)
         })
       return
     }
@@ -48,6 +53,7 @@ const App = () => {
         setPersons([...persons, res])
         setNewName('')
         setNewNumber('')
+        displayMessage(`${res.name} added to phonebook`)
       })
 
   }
@@ -73,14 +79,23 @@ const App = () => {
     if (!window.confirm(`Are you sure you want to delete ${name}`)) return
     personService.deletePerson(id)
       .then(_ => {
+        displayMessage(`deleted ${persons.find(person => person.id === id).name}`)
         setPersons(persons.filter(person => person.id !== id))
       })
+  }
+
+  const displayMessage = (msg) => {
+    setMessage(msg)
+    setTimeout(() => {
+      setMessage('')
+    }, 2500)
   }
 
 
   return (
     <div>
       <h1>Phonebook</h1>
+      <Notification msg={message} />
       <Search handleChange={handleSearchChange} searchTerm={searchTerm} />
       <h2>new contact</h2>
       <PersonForm 
