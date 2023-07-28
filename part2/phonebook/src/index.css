@@ -10,12 +10,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgb(34,193,195);
-  background: linear-gradient(45deg, rgba(34,193,195,1) 0%, rgba(191,253,45,1) 100%);
   font-family: 'Edu SA Beginner', cursive;
   font-size: 2em;
   color: white;
   border-radius: 12px; 
   padding: 6px 12px;
   min-width: 50%;
+}
+
+.successful {
+  background: rgb(34,193,195);
+  background: linear-gradient(45deg, rgba(34,193,195,1) 0%, rgba(191,253,45,1) 100%);
+}
+
+.error {
+  background: rgb(195,34,158);
+  background: linear-gradient(45deg, rgba(195,34,158,1) 0%, rgba(253,45,45,1) 100%);
 }

@@ -12,6 +12,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
   const [message, setMessage] = useState('')
+  const [isError, setError] = useState(false)
 
   useEffect(() => {
       personService.getAll()
@@ -36,7 +37,7 @@ const App = () => {
           setPersons(persons.map(person => person.id === res.id ? res : person))
           setNewName('')
           setNewNumber('')
-          displayMessage(`updated contact ${res.name}`)
+          displayMessage(`updated contact ${res.name}`, false)
         })
       return
     }
@@ -53,7 +54,7 @@ const App = () => {
         setPersons([...persons, res])
         setNewName('')
         setNewNumber('')
-        displayMessage(`${res.name} added to phonebook`)
+        displayMessage(`${res.name} added to phonebook`, false)
       })
 
   }
@@ -79,15 +80,21 @@ const App = () => {
     if (!window.confirm(`Are you sure you want to delete ${name}`)) return
     personService.deletePerson(id)
       .then(_ => {
-        displayMessage(`deleted ${persons.find(person => person.id === id).name}`)
+        displayMessage(`deleted ${persons.find(person => person.id === id).name}`, false)
+        setPersons(persons.filter(person => person.id !== id))
+      })
+      .catch(error => {
+        displayMessage(`${name} has already been removed from server`, true)
         setPersons(persons.filter(person => person.id !== id))
       })
   }
 
-  const displayMessage = (msg) => {
+  const displayMessage = (msg, isError) => {
+    setError(isError)
     setMessage(msg)
     setTimeout(() => {
       setMessage('')
+      setError(false)
     }, 2500)
   }
 
@@ -95,7 +102,7 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
-      <Notification msg={message} />
+      <Notification msg={message} isError={isError}/>
       <Search handleChange={handleSearchChange} searchTerm={searchTerm} />
       <h2>new contact</h2>
       <PersonForm 
